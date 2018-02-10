@@ -126,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
                 score = new AtomicInteger(0);
                 setScore(0);
                 grandmaCount=0;
+                mineCount=0;
+                factoryCount=0;
             }
         });
     }
@@ -171,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
         constraints.applyTo(constraintLayout);
 
-        slideIntoDMs = new TranslateAnimation(300,0,0,0);
+        slideIntoDMs = new TranslateAnimation(700,0,0,0);
         slideIntoDMs.setDuration(200);
         imageInCode.startAnimation(slideIntoDMs);
     }
