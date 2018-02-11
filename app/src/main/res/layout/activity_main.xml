@@ -8,6 +8,183 @@
     android:background="@drawable/background"
     tools:context="com.example.a10012001.cookieclickersimple.MainActivity">
 
+    <LinearLayout
+        android:id="@+id/grandmaLay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_reset"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/id_grandma"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/id_reset"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/grandmalarge" />
+
+        <TextView
+            android:id="@+id/g_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Grandma"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/stat_grandma_cps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5 CPS"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/stat_grandma_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/mineLay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_reset"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/id_mine"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/id_reset"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/minelarge" />
+
+        <TextView
+            android:id="@+id/m_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mine"
+            android:textColor="@android:color/white"
+            android:textSize="10sp"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/stat_mine_cps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="10 CPS"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/stat_mine_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/factoryLay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_reset"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/id_factory"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/id_reset"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/factorylarge" />
+
+        <TextView
+            android:id="@+id/f_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Factory"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/stat_fac_cps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="15 CPS"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/stat_fac_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="10sp" />
+    </LinearLayout>
+
     <ImageView
         android:id="@+id/id_cookieView"
         android:layout_width="200dp"
@@ -83,52 +260,16 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp" />
 
-    <ImageView
-        android:id="@+id/id_grandma"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/grandmalarge"
-        android:layout_marginRight="8dp"
-        app:layout_constraintHorizontal_bias="0.25"
+    <Button
+        android:id="@+id/id_tester"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/id_reset"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <ImageView
-        android:id="@+id/id_mine"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_reset"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/minelarge" />
-
-    <ImageView
-        android:id="@+id/id_factory"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_reset"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/factorylarge" />
+        android:layout_marginStart="8dp"
+        android:onClick="add100"
+        android:text="+100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="8dp" />
 
 </android.support.constraint.ConstraintLayout>
