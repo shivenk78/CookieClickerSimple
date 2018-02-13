@@ -42,9 +42,13 @@ public class MainActivity extends AppCompatActivity {
 
     /*TODO:
         MAKE A DISSAPPEAR ANIMATION
+        MAKE LOOP TO ADD UPGRADES ON RESTART
      */
 
     String SCORE_KEY = "scoreKeyThatYouWillNeverGuess";
+    String GRAN_KEY = "granKeyThatYouWillNeverGuess";
+    String MINE_KEY = "mineKeyThatYouWillNeverGuess";
+    String FACTORY_KEY = "factoryKeyThatYouWillNeverGuess";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
         mine = (ImageView)findViewById(R.id.id_mine);
         factory = (ImageView)findViewById(R.id.id_factory);
         score = new AtomicInteger(sharedPreferences.getInt(SCORE_KEY,0));
+        grandmaCount = sharedPreferences.getInt(GRAN_KEY,0);
+        mineCount = sharedPreferences.getInt(MINE_KEY,0);
+        factoryCount = sharedPreferences.getInt(FACTORY_KEY,0);
         count = (TextView)findViewById(R.id.id_count);
 
         granPrice = (TextView)findViewById(R.id.stat_grandma_price);
@@ -292,6 +299,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(SCORE_KEY,score.get());
+        editor.putInt(GRAN_KEY,grandmaCount);
+        editor.putInt(MINE_KEY,mineCount);
+        editor.putInt(FACTORY_KEY,factoryCount);
         editor.commit();
         Log.d("shiv","Score Committed");
         super.onStop();
