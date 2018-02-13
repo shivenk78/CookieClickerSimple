@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
     Upgrade Grandma, Mine, Factory;
 
     /*TODO:
-        MAKE A DISSAPPEAR ANIMATION
         MAKE LOOP TO ADD UPGRADES ON RESTART
      */
 
@@ -212,8 +211,10 @@ public class MainActivity extends AppCompatActivity {
                 granPrice.setText(Grandma.getPrice()+"");
             }
         }else {
-            grandmaLay.startAnimation(disappearAnim);
-            grandmaLay.setVisibility(View.INVISIBLE);
+            if(grandmaLay.getVisibility()==View.VISIBLE) {
+                grandmaLay.startAnimation(disappearAnim);
+                grandmaLay.setVisibility(View.INVISIBLE);
+            }
         }
         if(score.get()>=Mine.getPrice()) {
             if(mineLay.getVisibility()==View.INVISIBLE) {
@@ -222,8 +223,10 @@ public class MainActivity extends AppCompatActivity {
                 minePrice.setText(Mine.getPrice()+"");
             }
         }else {
-            mineLay.startAnimation(disappearAnim);
-            mineLay.setVisibility(View.INVISIBLE);
+            if(mineLay.getVisibility()==View.VISIBLE) {
+                mineLay.startAnimation(disappearAnim);
+                mineLay.setVisibility(View.INVISIBLE);
+            }
         }
         if(score.get()>=Factory.getPrice()) {
             if(factoryLay.getVisibility()==View.INVISIBLE) {
@@ -232,8 +235,10 @@ public class MainActivity extends AppCompatActivity {
                 facPrice.setText(Factory.getPrice()+"");
             }
         }else {
-            factoryLay.startAnimation(disappearAnim);
-            factoryLay.setVisibility(View.INVISIBLE);
+            if(factoryLay.getVisibility()==View.VISIBLE) {
+                factoryLay.startAnimation(disappearAnim);
+                factoryLay.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
@@ -356,6 +361,10 @@ public class MainActivity extends AppCompatActivity {
             editor.putInt(FACTORY_KEY, factoryCount);
             editor.commit();
             Log.d("shiv", "Score Committed");
+        }else{
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear();
+            editor.commit();
         }
         super.onStop();
     }
