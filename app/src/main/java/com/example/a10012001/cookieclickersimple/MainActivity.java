@@ -10,13 +10,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,17 +32,20 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MainActivity extends AppCompatActivity {
 
     int grandmaCount,mineCount,factoryCount;
+    boolean save;
 
     AnimationSet cookieAnims = new AnimationSet(true);
     AnimationSet clickAnims = new AnimationSet(true);
+    Animation fadeIn,fadeOut;
     AtomicInteger score;
     Button reset,confirm,tester;
     ConstraintLayout constraintLayout;
     ImageView cookie,grandma,mine,factory;
     LinearLayout grandmaLay,mineLay,factoryLay;
-    ScaleAnimation appearAnim;
+    ScaleAnimation appearAnim, disappearAnim;
     TranslateAnimation slideIntoDMs;
     SharedPreferences sharedPreferences;
+    Switch saveSwitch;
     TextView count,granPrice,minePrice,facPrice;
     Upgrade Grandma, Mine, Factory;
 
@@ -75,17 +84,34 @@ public class MainActivity extends AppCompatActivity {
         mineCount = sharedPreferences.getInt(MINE_KEY,0);
         factoryCount = sharedPreferences.getInt(FACTORY_KEY,0);
         count = (TextView)findViewById(R.id.id_count);
+        saveSwitch = (Switch)findViewById(R.id.id_saveSwitch);
+            saveSwitch.setSelected(true);
 
         granPrice = (TextView)findViewById(R.id.stat_grandma_price);
         minePrice = (TextView)findViewById(R.id.stat_mine_price);
         facPrice = (TextView)findViewById(R.id.stat_fac_price);
 
         Grandma = new Upgrade(5, 50);
+            granPrice.setText(Grandma.getPrice()+"");
         Mine = new Upgrade(10,300);
+            minePrice.setText(Mine.getPrice()+"");
         Factory = new Upgrade(15,1000);
+            facPrice.setText(Factory.getPrice()+"");
 
         appearAnim = new ScaleAnimation(0.0f,1.0f,0.0f,1.0f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
         appearAnim.setDuration(300);
+        disappearAnim = new ScaleAnimation(1.0f,0.0f,1.0f,0.0f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+        disappearAnim.setDuration(300);
+
+        for(int i=0;i<grandmaCount;i++){
+            addUpgrade(R.drawable.grandma);
+        }
+        for(int i=0;i<mineCount;i++){
+            addUpgrade(R.drawable.mine);
+        }
+        for(int i=0;i<factoryCount;i++){
+            addUpgrade(R.drawable.factory);
+        }
 
         setScore(0);
         PassiveThread passiveThread = new PassiveThread();
@@ -98,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         secondAnim.setStartOffset(150);
         cookieAnims.addAnimation(firstAnim);
         cookieAnims.addAnimation(secondAnim);
+
         cookie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setScore(-Mine.getPrice());
-                addUpgrade(R.drawable.minelarge);
+                addUpgrade(R.drawable.mine);
                 mineCount++;
                 Mine.increasePrice();
                 minePrice.setText(Mine.getPrice()+"");
@@ -137,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setScore(-Factory.getPrice());
-                addUpgrade(R.drawable.factorylarge);
+                addUpgrade(R.drawable.factory);
                 factoryCount++;
                 Factory.increasePrice();
                 facPrice.setText(Factory.getPrice()+"");
@@ -157,11 +184,17 @@ public class MainActivity extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                score = new AtomicInteger(0);
+                /*score = new AtomicInteger(0);
                 setScore(0);
                 grandmaCount=0;
                 mineCount=0;
-                factoryCount=0;
+                factoryCount=0;*/
+            }
+        });
+        saveSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                save = b;
             }
         });
     }
@@ -179,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
                 granPrice.setText(Grandma.getPrice()+"");
             }
         }else {
+            grandmaLay.startAnimation(disappearAnim);
             grandmaLay.setVisibility(View.INVISIBLE);
         }
         if(score.get()>=Mine.getPrice()) {
@@ -188,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
                 minePrice.setText(Mine.getPrice()+"");
             }
         }else {
+            mineLay.startAnimation(disappearAnim);
             mineLay.setVisibility(View.INVISIBLE);
         }
         if(score.get()>=Factory.getPrice()) {
@@ -197,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
                 facPrice.setText(Factory.getPrice()+"");
             }
         }else {
+            factoryLay.startAnimation(disappearAnim);
             factoryLay.setVisibility(View.INVISIBLE);
         }
     }
@@ -205,9 +241,14 @@ public class MainActivity extends AppCompatActivity {
         ImageView imageInCode = new ImageView(this);
         imageInCode.setId(View.generateViewId());
         imageInCode.setImageResource(id);
-        imageInCode.setScaleX(0.4f);
-        imageInCode.setScaleY(0.4f);
-
+        if(id==R.drawable.grandma) {
+            imageInCode.setScaleX(0.3f);
+            imageInCode.setScaleY(0.3f);
+        }
+        if(id==R.drawable.factory) {
+            imageInCode.setScaleX(0.45f);
+            imageInCode.setScaleY(0.45f);
+        }
         ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT); //This can be used on ANY View
         imageInCode.setLayoutParams(params);
 
@@ -256,9 +297,19 @@ public class MainActivity extends AppCompatActivity {
 
         constraints.applyTo(constraintLayout);
 
-        final TranslateAnimation translateAnimation = new TranslateAnimation(0,0,50,-200);
-        translateAnimation.setDuration(1000);
-        textViewInCode.startAnimation(translateAnimation);
+        AnimationSet plusOneAnim = new AnimationSet(true);
+        final TranslateAnimation translateAnimation = new TranslateAnimation(0,0,50,-2000);
+        translateAnimation.setDuration(3000);
+        fadeIn = new AlphaAnimation(0,1);
+        fadeIn.setInterpolator(new DecelerateInterpolator());
+        fadeIn.setDuration(500);
+        fadeOut = new AlphaAnimation(1,0);
+        fadeOut.setInterpolator(new AccelerateInterpolator());
+        fadeOut.setDuration(1500);
+        //plusOneAnim.addAnimation(fadeIn);
+        plusOneAnim.addAnimation(translateAnimation);
+        plusOneAnim.addAnimation(fadeOut);
+        textViewInCode.startAnimation(plusOneAnim);
         textViewInCode.setVisibility(View.INVISIBLE);
     }
 
@@ -297,13 +348,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(SCORE_KEY,score.get());
-        editor.putInt(GRAN_KEY,grandmaCount);
-        editor.putInt(MINE_KEY,mineCount);
-        editor.putInt(FACTORY_KEY,factoryCount);
-        editor.commit();
-        Log.d("shiv","Score Committed");
+        if(save) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt(SCORE_KEY, score.get());
+            editor.putInt(GRAN_KEY, grandmaCount);
+            editor.putInt(MINE_KEY, mineCount);
+            editor.putInt(FACTORY_KEY, factoryCount);
+            editor.commit();
+            Log.d("shiv", "Score Committed");
+        }
         super.onStop();
     }
 
