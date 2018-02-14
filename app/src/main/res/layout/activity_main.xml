@@ -8,6 +8,29 @@
     android:background="@drawable/background"
     tools:context="com.example.a10012001.cookieclickersimple.MainActivity">
 
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/id_background_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:scaleType="fitXY"
+            android:src="@drawable/milk" />
+
+        <ImageView
+            android:id="@+id/id_background_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:scaleType="fitXY"
+            android:src="@drawable/milk" />
+
+    </FrameLayout>
+
     <LinearLayout
         android:id="@+id/grandmaLay"
         android:layout_width="wrap_content"

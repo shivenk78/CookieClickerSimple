@@ -1,5 +1,6 @@
 package com.example.a10012001.cookieclickersimple;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -16,6 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     AtomicInteger score;
     Button reset,confirm,tester;
     ConstraintLayout constraintLayout;
-    ImageView cookie,grandma,mine,factory;
+    ImageView cookie,grandma,mine,factory,milk1,milk2;
     LinearLayout grandmaLay,mineLay,factoryLay;
     ScaleAnimation appearAnim, disappearAnim;
     TranslateAnimation slideIntoDMs;
@@ -79,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
         grandma = (ImageView)findViewById(R.id.id_grandma);
         mine = (ImageView)findViewById(R.id.id_mine);
         factory = (ImageView)findViewById(R.id.id_factory);
+        milk1 = (ImageView)findViewById(R.id.id_background_one); //milk code from StackOverflow
+        milk2 = (ImageView)findViewById(R.id.id_background_two);
         score = new AtomicInteger(sharedPreferences.getInt(SCORE_KEY,0));
         grandmaCount = sharedPreferences.getInt(GRAN_KEY,0);
         mineCount = sharedPreferences.getInt(MINE_KEY,0);
@@ -142,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         grandma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(score.get()-Grandma.getPrice()>0) {
+                if(score.get()-Grandma.getPrice()>=0) {
                     setScore(-Grandma.getPrice());
                     addUpgrade(R.drawable.grandma);
                     grandmaCount++;
@@ -154,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         mine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(score.get()-Mine.getPrice()>0) {
+                if(score.get()-Mine.getPrice()>=0) {
                     setScore(-Mine.getPrice());
                     addUpgrade(R.drawable.mine);
                     mineCount++;
@@ -166,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         factory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(score.get()-Factory.getPrice()>0) {
+                if(score.get()-Factory.getPrice()>=0) {
                     setScore(-Factory.getPrice());
                     addUpgrade(R.drawable.factory);
                     factoryCount++;
@@ -203,6 +207,21 @@ public class MainActivity extends AppCompatActivity {
                 save = b;
             }
         });
+        final ValueAnimator animator = ValueAnimator.ofFloat(0.0f,1.0f);
+        animator.setRepeatCount(ValueAnimator.INFINITE);
+        animator.setInterpolator(new LinearInterpolator());
+        animator.setDuration(10000L);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                final float progress = (float)animation.getAnimatedValue();
+                final float width = milk1.getWidth();
+                final float translationX=width*progress;
+                milk1.setTranslationX(translationX);
+                milk2.setTranslationX(translationX-width);
+            }
+        });
+        animator.start();
     }
 
     public void setScore(int add){
