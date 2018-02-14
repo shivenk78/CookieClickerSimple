@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         confirm = (Button)findViewById(R.id.id_confirm);
             confirm.setVisibility(View.INVISIBLE);
         tester = (Button)findViewById(R.id.id_tester);
+            tester.setVisibility(View.INVISIBLE);
         constraintLayout = (ConstraintLayout)findViewById(R.id.id_layout);
         grandmaLay = (LinearLayout)findViewById(R.id.grandmaLay);
         mineLay = (LinearLayout)findViewById(R.id.mineLay);
@@ -84,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
         factoryCount = sharedPreferences.getInt(FACTORY_KEY,0);
         count = (TextView)findViewById(R.id.id_count);
         saveSwitch = (Switch)findViewById(R.id.id_saveSwitch);
-            saveSwitch.setSelected(true);
 
         granPrice = (TextView)findViewById(R.id.stat_grandma_price);
         minePrice = (TextView)findViewById(R.id.stat_mine_price);
@@ -142,33 +142,40 @@ public class MainActivity extends AppCompatActivity {
         grandma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setScore(-Grandma.getPrice());
-                addUpgrade(R.drawable.grandma);
-                grandmaCount++;
-                Grandma.increasePrice();
-                granPrice.setText(Grandma.getPrice()+"");
+                if(score.get()-Grandma.getPrice()>0) {
+                    setScore(-Grandma.getPrice());
+                    addUpgrade(R.drawable.grandma);
+                    grandmaCount++;
+                    Grandma.increasePrice();
+                    granPrice.setText(Grandma.getPrice() + "");
+                }
             }
         });
         mine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setScore(-Mine.getPrice());
-                addUpgrade(R.drawable.mine);
-                mineCount++;
-                Mine.increasePrice();
-                minePrice.setText(Mine.getPrice()+"");
+                if(score.get()-Mine.getPrice()>0) {
+                    setScore(-Mine.getPrice());
+                    addUpgrade(R.drawable.mine);
+                    mineCount++;
+                    Mine.increasePrice();
+                    minePrice.setText(Mine.getPrice() + "");
+                }
             }
         });
         factory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setScore(-Factory.getPrice());
-                addUpgrade(R.drawable.factory);
-                factoryCount++;
-                Factory.increasePrice();
-                facPrice.setText(Factory.getPrice()+"");
+                if(score.get()-Factory.getPrice()>0) {
+                    setScore(-Factory.getPrice());
+                    addUpgrade(R.drawable.factory);
+                    factoryCount++;
+                    Factory.increasePrice();
+                    facPrice.setText(Factory.getPrice() + "");
+                }
             }
         });
+        /*
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,13 +190,13 @@ public class MainActivity extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*score = new AtomicInteger(0);
+                score = new AtomicInteger(0);
                 setScore(0);
                 grandmaCount=0;
                 mineCount=0;
-                factoryCount=0;*/
+                factoryCount=0;
             }
-        });
+        });*/
         saveSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -325,9 +332,9 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        setScore(grandmaCount * 5);
-                        setScore(mineCount*10);
-                        setScore(factoryCount*20);
+                        setScore(grandmaCount*Grandma.getCps());
+                        setScore(mineCount*Mine.getCps());
+                        setScore(factoryCount*Factory.getCps());
                     }
                 });
                 try {
