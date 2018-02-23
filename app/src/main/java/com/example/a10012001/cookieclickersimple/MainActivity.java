@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         MAKE LOOP TO ADD UPGRADES ON RESTART
      */
 
+	//tarang is cute
+
     String SCORE_KEY = "scoreKeyThatYouWillNeverGuess";
     String GRAN_KEY = "granKeyThatYouWillNeverGuess";
     String MINE_KEY = "mineKeyThatYouWillNeverGuess";
